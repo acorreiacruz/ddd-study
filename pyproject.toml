@@ -6,7 +6,7 @@ authors = [
     {name = "acorreiacruz",email = "antoniocruzjunior@outlook.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.10,<4.0.0"
 dependencies = [
     "python-dotenv (>=1.1.1,<2.0.0)",
     "sqlalchemy (>=2.0.43,<3.0.0)",
@@ -23,4 +23,5 @@ build-backend = "poetry.core.masonry.api"
 pytest = "^8.4.1"
 pytest-asyncio = "^1.1.0"
 pytest-cov = "^6.2.1"
+pytest-watcher = "^0.4.3"
 
