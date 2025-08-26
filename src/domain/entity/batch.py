@@ -72,4 +72,8 @@ class Batch(BaseModel):
             raise TypeError(
                 f"The other parameter must be of type Batch, but was given a type:{type(other)}"
             )
+        if self.eta is None:
+            return True
+        if other.eta is None:
+            return False
         return self.eta < other.eta
