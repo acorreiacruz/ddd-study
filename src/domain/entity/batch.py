@@ -17,7 +17,7 @@ class Batch(BaseModel):
     reference: str
     sku: str
     quantity: int
-    eta: date
+    eta: date | None
     already_allocated: Dict[str, OrderLine]
 
     def __init__(
@@ -25,7 +25,7 @@ class Batch(BaseModel):
         reference: str,
         sku: str,
         quantity: int,
-        eta: date = date.today(),
+        eta: date | None = None,
         already_allocated: Dict[str, OrderLine] = {},
         **kwargs,
     ):
@@ -58,10 +58,14 @@ class Batch(BaseModel):
 
     def __gt__(self, other: Any) -> bool:
         if not isinstance(other, Batch):
-            raise TypeError(f"The other parameter must be of type Batch, but was given a type:{type(other)}")
+            raise TypeError(
+                f"The other parameter must be of type Batch, but was given a type:{type(other)}"
+            )
         return self.eta > other.eta
 
     def __lt__(self, other: Any) -> bool:
         if not isinstance(other, Batch):
-            raise TypeError(f"The other parameter must be of type Batch, but was given a type:{type(other)}")
+            raise TypeError(
+                f"The other parameter must be of type Batch, but was given a type:{type(other)}"
+            )
         return self.eta < other.eta
