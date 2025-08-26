@@ -61,6 +61,10 @@ class Batch(BaseModel):
             raise TypeError(
                 f"The other parameter must be of type Batch, but was given a type:{type(other)}"
             )
+        if self.eta is None:
+            return False
+        if other.eta is None:
+            return True
         return self.eta > other.eta
 
     def __lt__(self, other: Any) -> bool:
