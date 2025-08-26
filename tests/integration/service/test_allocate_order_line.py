@@ -18,3 +18,15 @@ def test_must_prioritize_the_batch_in_stock_in_relation_to_what_will_arrive():
     order_line = OrderLine("ORDER-ID-12134", "BATCH-SKU-1", 30)
     allocate_order_line(order_line=order_line, batchs=batchs)
     assert batch_in_stock.quantity == 70
+
+
+def test_must_prioritize_the_batch_that_will_arrive_sooner():
+    batch1: Batch = Batch("REFERENCE-12349", "BATCH-SKU-1", 100, date(2026, 1, 15))
+    batch2: Batch = Batch("REFERENCE-12349", "BATCH-SKU-1", 100, date(2025, 11, 2))
+    batch3: Batch = Batch("REFERENCE-12349", "BATCH-SKU-1", 100, date(2025, 12, 12))
+    batch4: Batch = Batch("REFERENCE-12349", "BATCH-SKU-1", 100, date(2025, 10, 20))
+    batch5: Batch = Batch("REFERENCE-12349", "BATCH-SKU-1", 100, date(2025, 9, 2))
+    batchs: List[Batch] = [batch1, batch2, batch3, batch4, batch5]
+    order_line = OrderLine("ORDER-ID-12134", "BATCH-SKU-1", 30)
+    allocate_order_line(order_line=order_line, batchs=batchs)
+    assert batch5.quantity == 70
